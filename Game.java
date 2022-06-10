@@ -9,6 +9,9 @@ public class Game extends JPanel implements KeyListener {
     Timer t;
     Mino[][] board = new Mino[30][10];
     Tetrimino piece;
+    Wall leftwall = new Wall(480, 30, 600, 10);
+    Wall bottomwall = new Wall(480, 630, 10, 320);
+    Wall rightwall = new Wall(790, 30, 600, 10);
     public Game() {
         generatePiece();
         repaint();
@@ -139,5 +142,8 @@ public class Game extends JPanel implements KeyListener {
                 }
             }
         }
+        leftwall.paint(g2);
+        bottomwall.paint(g2);
+        rightwall.paint(g2);
     }
 }
