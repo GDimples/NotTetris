@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.lang.*;
 import java.util.ArrayList;
 public class Game extends JPanel implements KeyListener {
     boolean gameover = false;
@@ -12,7 +11,12 @@ public class Game extends JPanel implements KeyListener {
     Wall leftwall = new Wall(480, 30, 600, 10);
     Wall bottomwall = new Wall(480, 630, 10, 320);
     Wall rightwall = new Wall(790, 30, 600, 10);
+    JLabel score = new JLabel("Score: 0", null, JLabel.LEFT);
+    int intscore = 0;
     public Game() {
+        score.setFont(score.getFont().deriveFont(40.0f));
+        setLayout(new BorderLayout());
+        add(score, BorderLayout.CENTER);
         generatePiece();
         repaint();
         addKeyListener(this);
@@ -113,13 +117,11 @@ public class Game extends JPanel implements KeyListener {
                 linestoclear.add(y);
             }
         }
-        System.out.println(linestoclear);
         return linestoclear;
     }
 
     public void clearLines(ArrayList<Integer> clearlist) {
         for (int i = 0; i < clearlist.size(); i++) {
-            System.out.println(clearlist.get(i));
             for (int x = 0; x < board[0].length; x++) {
                 for (int y = clearlist.get(i); y < board.length - 1; y++) {
                     board[y - i][x] = board[y + 1 - i][x];
@@ -128,6 +130,8 @@ public class Game extends JPanel implements KeyListener {
                     }
                 }
             }
+            intscore += 100 * (i + 1);
+            score.setText("Score: " + intscore);
         }
     }
 
